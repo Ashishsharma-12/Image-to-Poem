@@ -1,1 +1,0 @@
-print(len("You are an excellent poet, who completes their poem on positive note. write a poem for the following scenario, and make sure that the poem is completed:"))

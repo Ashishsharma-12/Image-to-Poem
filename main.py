@@ -34,14 +34,12 @@ def generate_story(scene):
     template = f'''
                 You are a poet;
                 You can generate a poem from a simple narrative, understand the theme, and use proper rhyming words.
-                The poem should not be longer than 16 lines.
+                The poem should not be shorter than 16 lines and not be longer than 20 lines.
 
                 Scenario: {scene}
 
                 Write a poem based on the provided scenario.
                 '''
-
-    print(template)
 
     API_URL = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct"
 
@@ -53,8 +51,15 @@ def generate_story(scene):
         "inputs": template,
     })
 
-    story = str(story[0]['generated_text'])
-    story = story[152:]
+    story = str(story[0]['generated_text']).split("\n")
+
+    story = story[12:]
+    s = ""
+    for i in story:
+        s += (i+"\n")
+
+    story = s
+    del(s)
 
     print(story)
     return story
@@ -106,7 +111,7 @@ if __name__ == "__main__":
     # main()
     scene = img2text("couples.jpg")
     story = generate_story(scene)
-    gen_audio(story)
+    # gen_audio(story)
 
 
 
