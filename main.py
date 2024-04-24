@@ -31,7 +31,15 @@ def img2text(path):
 
 
 def generate_story(scene):
-    template = "Consider yourself as a poet and write a poem for the following scenario:" + scene
+    template = f'''
+                You are a poet;
+                You can generate a poem from a simple narrative, understand the theme, and use proper rhyming words.
+                The poem should not be longer than 16 lines.
+
+                Scenario: {scene}
+
+                Write a poem based on the provided scenario.
+                '''
 
     print(template)
 
@@ -46,7 +54,7 @@ def generate_story(scene):
     })
 
     story = str(story[0]['generated_text'])
-    story = story[119:]
+    story = story[152:]
 
     print(story)
     return story
@@ -95,7 +103,10 @@ def main():
         st.audio("audio.wav")
 
 if __name__ == "__main__":
-    main()
+    # main()
+    scene = img2text("couples.jpg")
+    story = generate_story(scene)
+    gen_audio(story)
 
 
 
