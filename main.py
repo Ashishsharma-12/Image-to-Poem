@@ -1,7 +1,7 @@
 from dotenv import load_dotenv, find_dotenv
 import requests
 import os
-# import streamlit as st
+import streamlit as st
 import torch
 from parler_tts import ParlerTTSForConditionalGeneration
 from transformers import AutoTokenizer
@@ -69,35 +69,33 @@ def gen_audio(message):
     sf.write("audio.wav", audio_arr, model.config.sampling_rate)
 
 
-# def main():
-#     st.set_page_config(page_title="img 2 poem", page_icon="🤖")
-#     st.header("Trun image into poem")
-#     uploaded_file = st.file_uploader("choose an image.....", type=["png","jpg","jpeg","svg"])
+def main():
+    st.set_page_config(page_title="img 2 poem", page_icon="🤖")
+    st.header("Trun image into poem")
+    uploaded_file = st.file_uploader("choose an image.....", type=["png","jpg","jpeg","svg"])
 
-#     if uploaded_file is not None:
-#         print(uploaded_file)
-#         bytes_data = uploaded_file.getvalue()
-#         print(bytes_data)
-#         with open(uploaded_file.name, "wb") as file:
-#             file.write(bytes_data)
+    if uploaded_file is not None:
+        print(uploaded_file)
+        bytes_data = uploaded_file.getvalue()
+        print(bytes_data)
+        with open(uploaded_file.name, "wb") as file:
+            file.write(bytes_data)
 
-#         st.image(uploaded_file, caption="Uploaded Image")
+        st.image(uploaded_file, caption="Uploaded Image")
 
-#         scenario = img2text(uploaded_file.name)
-#         story = generate_story(scenario)
-#         gen_audio(story)
+        scenario = img2text(uploaded_file.name)
+        story = generate_story(scenario)
+        gen_audio(story)
 
-#         with st.expander("Scenario"):
-#             st.write(scenario)
-#         with st.expander("Poem"):
-#             st.write(story)
+        with st.expander("Scenario"):
+            st.write(scenario)
+        with st.expander("Poem"):
+            st.write(story)
 
-#         st.audio("audio.mp3")
+        st.audio("audio.wav")
 
 if __name__ == "__main__":
-    scene = img2text('context.jpg')
-    story = generate_story(scene)
-    gen_audio(story)
+    main()
 
 
 
